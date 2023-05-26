@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width">
+
+	<title>Invisible War</title>
+	<link href="style.css" rel="stylesheet" type="text/css" />
+	<link rel="icon" href="forest.png" />
+		<link rel="manifest" href="manifest.json?v=1" />
+<style>
+	#other{
+		height: 100px;
+		width: 100px;
+		position: absolute;
+		transform-origin: -2500px 0px -7500px;
+	}
+	#soldier{
+		position: absolute;
+		height: 300px;
+		width: 100px;
+		transform-origin: -2500px 0px 0px;
+	}
+	.score{
+		cursor: pointer;
+		position: absolute;
+		z-index: 9;
+		left: 80%;
+	}
+	#enemyhealth{
+		left: 75%;
+	}
+	#username{
+		position: absolute;
+		transform-origin: -2500px 0px -7500px;
+	}
+	#panther {
+		transform-style: preserve-3d;
+		cursor: pointer;
+		top: 100px;
+		height: 100px;
+		width: 100px;
+		position: absolute;
+	}
+	html,
+	body {
+		margin: 0;
+		padding: 0;
+	}
+	#range {
+		color: black;
+		z-index: 5;
+		font-size: 20pt;
+		position: absolute;
+		top: 150px;
+	}
+	#coordinates {
+		color: black;
+		z-index: 10;
+		font-size: 20pt;
+		position: absolute;
+		top: 200px;
+	}
+	#enemy {
+		color: black;
+		z-index: 10;
+		font-size: 20pt;
+		position: absolute;
+		top: 250px;
+	}
+	#ammo {
+		color: black;
+		z-index:105;
+		font-size: 20pt;
+		position: absolute;
+		top: 300px;
+	}
+	#health {
+		content: "health";
+  background: red;
+		height: 50px;
+		width: 50%;
+		z-index: 5;
+		position: absolute;
+	}
+		#health::-webkit-progress-value {
+  background: red;
+}
+	#enemyhealth{
+  background: blue;
+		height: 50px;
+		width: 50%;
+		z-index: 5;
+		left: 50%;
+		position: absolute;
+	}
+	#enemyhealth::-webkit-progress-value {
+  background: blue;
+}
+	p {
+		left: 25%;
+ 		color: white;
+		z-index: 6;
+		position: absolute;
+	}
+
+
+	#bullet {
+		position: absolute;
+		height: 200px;
+		width: 400px;
+		z-index: 3;
+		top: 50%;
+		left: 50%;
+	}
+
+	#bottom {
+		z-index: -1;
+		position: absolute;
+		transform-origin: bottom;
+		height: 50px;
+		width: 50px;
+		transform: rotateX(-90deg) translateY(250px);
+	}
+
+	#panther {
+		transform-style: preserve-3d;
+		cursor: pointer;
+		height: 100px;
+		width: 100px;
+		position: absolute;
+		transform: translateY(400px) translateX(100px);
+	}
+
+	#world {
+		position: absolute;
+		transform-style: preserve-3d;
+		transform-origin: -2500px 0px;
+	}
+
+	body {
+		perspective: 5000px;
+		overflow: hidden;
+		background-image: url(sky.jpg);
+	}
+
+	#main {
+		text-align: center;
+		border: 2px solid black;
+		z-index: 3;
+		height: 100px;
+		width: 100px;
+		position: absolute;
+		transform: translateY(-5050px);
+		background-color: white;
+		color: black;
+		font-size: 30pt;
+	}
+	#main:hover {
+		text-align: center;
+		border: 2px solid white;
+		z-index: 3;
+		height: 100px;
+		width: 100px;
+		position: absolute;
+		transform: translateY(-5050px);
+		background-color: black;
+		color: white;
+		font-size: 30pt;
+	}
+
+	#boxDiv {
+		width: 50px;
+		height: 50px;
+		transform-style: preserve-3d;
+	}
+
+	#boxDiv div {
+		transform-style: preserve-3d;
+		position: absolute;
+	}
+
+	#treeDiv {
+		width: 50px;
+		height: 50px;
+		transform-style: preserve-3d;
+	}
+
+	#treeDiv div {
+		position: absolute;
+	}
+
+	#tree {
+		position: absolute;
+		height: 500px;
+		width: 50px;
+		z-index: 1;
+		transform: rotateX(180deg) translateY(600px);
+		transform-style: preserve-3d;
+		transform-origin: bottom;
+	}
+
+	#universe {
+		z-index: 1;
+		transform: translateY(-400px) scale3d(5,5,5);
+		transform-origin: -2500px 0px;
+		position: absolute;
+	}
+	mark{
+		color: yellow;
+	}
+	 #healthp{
+		 left: 75%;
+ 		color: white;
+		z-index: 6;
+		position: absolute;
+	 }
+</style>
+		<div id="universe">
+		<div id="world">
+			<img id="panther" src="soldier.png" class="soldier"/>
+			<div id="mainDiv">
+				<div id="boxDiv" class="cell">
+					<img src="ground.jpeg" id="bottom"/>
+					<img id="tree" hidden="true" class="tree" src="Cactus.png" />
+				</div>
+			</div>
+		</div>
+	</div>
+	<p>Health</p>
+	
+	<p id="healthp" hidden="true">Enemy Health</p>
+<progress id="health" value="5" max="5"></progress>
+	<progress id="enemyhealth" hidden="true" value="5" max="5"></progress>
+<mark id="range">Range: 200</mark>
+<mark id="ammo">Ammo: 20</mark>
+<mark id="enemy">A soldier is at X: 0 Z: 0</mark>
+<mark id="coordinates">You are at X: -1000 Z: 0</mark>
+
+<body>
+<script>
+	if ("serviceWorker" in navigator) {
+  window.addEventListener("load", function() {
+    navigator.serviceWorker
+      .register("/service-worker.js")
+      .then(res => console.log("service worker registered"))
+      .catch(err => console.log("service worker not registered", err))
+  })
+}
+</script>
+
+	<mark id="score"></mark>
+	<audio id="shot" src="boing.mp3"></audio>
+	<img src="Gun.png" id="bullet"/>
+
+	<script src="app.js?v=1"></script>
+</body>
+
+</html>
